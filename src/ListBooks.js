@@ -9,16 +9,21 @@ class ListBooks extends React.Component {
 	}
 	
 	state = {
-		books: [],
-		booksByShelf: {}
+		books: []
 	}
 
 	componentDidMount() {
     BooksAPI.getAll().then((books) => this.setState({ books }))
   }
   
-  onMoveToShelf = (book_id, shelf) => {
-    shelf === 'none' || BooksAPI.update(book_id, shelf).then((booksByShelf) => BooksAPI.getAll().then((books) => this.setState({ books, booksByShelf })))
+  onMoveToShelf = (book_to_update, new_shelf) => {
+    new_shelf === 'none' || BooksAPI.update(book_to_update, new_shelf).then(() => {
+			let books = this.state.books
+			books.forEach(book => {
+				book.shelf = (book.id === book_to_update.id) ? new_shelf : book.shelf
+			})
+    	this.setState({ books })
+    })
   }
 	
 	filterBooksBy = (books, shelf) => (books.filter((c) => c.shelf === shelf))
