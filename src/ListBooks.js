@@ -11,16 +11,22 @@ class ListBooks extends React.Component {
 	state = {
 		books: []
 	}
-
+	
 	componentDidMount() {
     BooksAPI.getAll().then((books) => this.setState({ books }))
   }
   
   onMoveToShelf = (book_to_update, new_shelf) => {
-    new_shelf === 'none' || BooksAPI.update(book_to_update, new_shelf).then(() => {
+    new_shelf === 'none' || BooksAPI.update(book_to_update, new_shelf).then((result) => {
 			let books = this.state.books
-			books.forEach(book => {
-				book.shelf = (book.id === book_to_update.id) ? new_shelf : book.shelf
+			const shelves = Object.keys(result)
+
+			shelves.forEach(shelf => {
+				result[shelf].forEach(book_id => {
+					books.forEach(book => {
+						book.shelf = (book.id === book_id) ? shelf : book.shelf 
+					})
+				})
 			})
     	this.setState({ books })
     })
@@ -28,7 +34,7 @@ class ListBooks extends React.Component {
 	
 	filterBooksBy = (books, shelf) => (books.filter((c) => c.shelf === shelf))
 	
-	booksByCategory = (category) => this.filterBooksBy(this.state.books, category)
+	booksByShelf = (shelf) => this.filterBooksBy(this.state.books, shelf)
 
 	makeTitles = () => ({
 		wantToRead: 'Want To Read',
@@ -37,9 +43,9 @@ class ListBooks extends React.Component {
 	})	
 	
 	render() {
-		const categories=['currentlyReading', 'wantToRead', 'read']
-		const titleByCategory=this.makeTitles()
-		const booksByCategory=this.booksByCategory
+		const shelves=['currentlyReading', 'wantToRead', 'read']
+		const titleByShelf=this.makeTitles()
+		const booksByShelf=this.booksByShelf
 
 		return (
 	    <div className="list-books">
@@ -48,12 +54,12 @@ class ListBooks extends React.Component {
 	      </div>
 	      <div className="list-books-content">
 	        <div>
-	        	{categories.map((category) => (
-		          <div className="bookshelf" key={category}>
-		            <h2 className="bookshelf-title"> {titleByCategory[category]} </h2>
+	        	{shelves.map((shelf) => (
+		          <div className="bookshelf" key={shelf}>
+		            <h2 className="bookshelf-title"> {titleByShelf[shelf]} </h2>
 		            <div className="bookshelf-books">
 		            	<ol className="books-grid">
-		            		{booksByCategory(category).map((book) => (
+		            		{booksByShelf(shelf).map((book) => (
 		            			<Book key={book.id} book={book} onSelect={this.onMoveToShelf}/>
 		            			))}
 		            	</ol>
