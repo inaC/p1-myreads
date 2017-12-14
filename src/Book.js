@@ -10,6 +10,7 @@ class Book extends React.Component {
 	render() {
 		const book = this.props.book
 		const onMoveToShelf = this.props.onSelect
+		
 		return(
 			<li>
 			  <div className="book">

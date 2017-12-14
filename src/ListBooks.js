@@ -10,7 +10,7 @@ class ListBooks extends React.Component {
 	
 	state = {
 		books: [],
-		result: {}
+		booksByShelf: {}
 	}
 
 	componentDidMount() {
@@ -18,17 +18,13 @@ class ListBooks extends React.Component {
   }
   
   onMoveToShelf = (book_id, shelf) => {
-    shelf === 'none' || BooksAPI.update(book_id, shelf).then((result) => BooksAPI.getAll().then((books) => this.setState({ books, result })))
+    shelf === 'none' || BooksAPI.update(book_id, shelf).then((booksByShelf) => BooksAPI.getAll().then((books) => this.setState({ books, booksByShelf })))
   }
 	
 	filterBooksBy = (books, shelf) => (books.filter((c) => c.shelf === shelf))
 	
-	categorizeBooks = (books, categories) => ({
-			wantToRead: this.filterBooksBy(books, 'wantToRead'),
-		  currentlyReading: this.filterBooksBy(books, 'currentlyReading'),
-			read: this.filterBooksBy(books, 'read')
-	}) 
-	
+	booksByCategory = (category) => this.filterBooksBy(this.state.books, category)
+
 	makeTitles = () => ({
 		wantToRead: 'Want To Read',
 		currentlyReading: 'Currently Reading',
@@ -36,10 +32,9 @@ class ListBooks extends React.Component {
 	})	
 	
 	render() {
-		const { books } = this.state
 		const categories=['currentlyReading', 'wantToRead', 'read']
-		const books_by_category=this.categorizeBooks(books)
 		const titleByCategory=this.makeTitles()
+		const booksByCategory=this.booksByCategory
 
 		return (
 	    <div className="list-books">
@@ -53,26 +48,8 @@ class ListBooks extends React.Component {
 		            <h2 className="bookshelf-title"> {titleByCategory[category]} </h2>
 		            <div className="bookshelf-books">
 		            	<ol className="books-grid">
-		            		{books_by_category[category].map((book) => (
+		            		{booksByCategory(category).map((book) => (
 		            			<Book key={book.id} book={book} onSelect={this.onMoveToShelf}/>
-		            			// <li key={book.id}>
-		            			//   <div className="book">
-		            			//     <div className="book-top">
-		            			//       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
-		            			//       <div className="book-shelf-changer">
-		            			//         <select onChange={(event) => this.onMoveToShelf({id: book.id}, event.target.value)} value={book.shelf}>
-		            			//           <option value="none" disabled>Move to...</option>
-		            			//           <option value="currentlyReading">Currently Reading</option>
-		            			//           <option value="wantToRead">Want to Read</option>
-		            			//           <option value="read">Read</option>
-		            			//           <option value="none">None</option>
-		            			//         </select>
-		            			//       </div>
-		            			//     </div>
-		            			//     <div className="book-title">{book.title}</div>
-		            			//     <div className="book-authors">{book.authors.join(', ')}</div>
-		            			//   </div>
-		            			// </li>
 		            			))}
 		            	</ol>
 		            </div>
