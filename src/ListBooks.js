@@ -1,6 +1,6 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
-import Book from './Book'
+import Shelf from './Shelf'
 import PropTypes from 'prop-types'
 
 class ListBooks extends React.Component {
@@ -35,18 +35,16 @@ class ListBooks extends React.Component {
 	filterBooksBy = (books, shelf) => (books.filter((c) => c.shelf === shelf))
 	
 	booksByShelf = (shelf) => this.filterBooksBy(this.state.books, shelf)
-
-	makeTitles = () => ({
-		wantToRead: 'Want To Read',
-		currentlyReading: 'Currently Reading',
-		read: 'Read'
-	})	
 	
 	render() {
 		const shelves=['currentlyReading', 'wantToRead', 'read']
-		const titleByShelf=this.makeTitles()
+		const titleByShelf = {
+			wantToRead: 'Want To Read',
+			currentlyReading: 'Currently Reading',
+			read: 'Read'
+		}
 		const booksByShelf=this.booksByShelf
-
+		
 		return (
 	    <div className="list-books">
 	      <div className="list-books-title">
@@ -54,18 +52,13 @@ class ListBooks extends React.Component {
 	      </div>
 	      <div className="list-books-content">
 	        <div>
-	        	{shelves.map((shelf) => (
-		          <div className="bookshelf" key={shelf}>
-		            <h2 className="bookshelf-title"> {titleByShelf[shelf]} </h2>
-		            <div className="bookshelf-books">
-		            	<ol className="books-grid">
-		            		{booksByShelf(shelf).map((book) => (
-		            			<Book key={book.id} book={book} onSelect={this.onMoveToShelf}/>
-		            			))}
-		            	</ol>
-		            </div>
-		          </div>)
-	        	)}
+	        	{shelves.map(shelf => (
+	        		<Shelf key={shelf} 
+	        					 name={shelf}
+	        					 title={titleByShelf[shelf]}
+	        					 books={booksByShelf(shelf)}
+	        					 onMoveToShelf={this.onMoveToShelf}/>
+	        	))}
 	        </div>
 	      </div>	
 	    </div>	
