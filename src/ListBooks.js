@@ -1,40 +1,17 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
 import Shelf from './Shelf'
 import PropTypes from 'prop-types'
 
 class ListBooks extends React.Component {
 	static propTypes={
-		showSearchPage: PropTypes.func.isRequired
+		books: PropTypes.array.isRequired,
+		showSearchPage: PropTypes.func.isRequired,
+		onMoveToShelf: PropTypes.func.isRequired
 	}
-	
-	state = {
-		books: []
-	}
-	
-	componentDidMount() {
-    BooksAPI.getAll().then((books) => this.setState({ books }))
-  }
-  
-  onMoveToShelf = (book_to_update, new_shelf) => {
-    new_shelf === 'none' || BooksAPI.update(book_to_update, new_shelf).then((result) => {
-			let books = this.state.books
-			const shelves = Object.keys(result)
-
-			shelves.forEach(shelf => {
-				result[shelf].forEach(book_id => {
-					books.forEach(book => {
-						book.shelf = (book.id === book_id) ? shelf : book.shelf 
-					})
-				})
-			})
-    	this.setState({ books })
-    })
-  }
-	
+			
 	filterBooksBy = (books, shelf) => (books.filter((c) => c.shelf === shelf))
 	
-	booksByShelf = (shelf) => this.filterBooksBy(this.state.books, shelf)
+	booksByShelf = (shelf) => this.filterBooksBy(this.props.books, shelf)
 	
 	render() {
 		const shelves=['currentlyReading', 'wantToRead', 'read']
@@ -57,7 +34,7 @@ class ListBooks extends React.Component {
 	        					 name={shelf}
 	        					 title={titleByShelf[shelf]}
 	        					 books={booksByShelf(shelf)}
-	        					 onMoveToShelf={this.onMoveToShelf}/>
+	        					 onMoveToShelf={this.props.onMoveToShelf}/>
 	        	))}
 	        </div>
 	      </div>	
