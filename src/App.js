@@ -12,14 +12,16 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false
   }
-
+  
+  onSearchBooks = (show) => this.setState({ showSearchPage: show })
+  
   render() {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+              <a className="close-search" title="Back to home page" onClick={() => this.onSearchBooks(false)}></a>
               <div className="search-books-input-wrapper">
                 {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -37,7 +39,7 @@ class BooksApp extends React.Component {
               <ol className="books-grid"></ol>
             </div>
           </div>
-        ) : <ListBooks showSearchPage={this.state.showSearchPage}/>}
+        ) : <ListBooks showSearchPage={this.onSearchBooks}/>}
       </div>
     )
   }

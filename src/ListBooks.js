@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 class ListBooks extends React.Component {
 	static propTypes={
-		showSearchPage: PropTypes.bool.isRequired
+		showSearchPage: PropTypes.func.isRequired
 	}
 	
 	state = {
@@ -61,7 +61,10 @@ class ListBooks extends React.Component {
 	        	))}
 	        </div>
 	      </div>	
-	    </div>	
+	      <div className="open-search">
+	        <a title="Add a book" onClick={() => this.props.showSearchPage(true)}></a>
+	      </div>	    
+	     </div>	
 		)
 	}
 }
