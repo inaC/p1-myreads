@@ -20,7 +20,7 @@ class Book extends React.Component {
 			      	(<div className="book-cover not-found" title='Image not found'></div>)
 			      }
 			      <div className="book-shelf-changer">
-			        <select onChange={(event) => onMoveToShelf({id: book.id}, event.target.value)} value={book.shelf}>
+			        <select onChange={(event) => onMoveToShelf(book, event.target.value)} value={book.shelf}>
 			          <option value="searching" disabled>Move to...</option>
 			          <option value="currentlyReading">Currently Reading</option>
 			          <option value="wantToRead">Want to Read</option>

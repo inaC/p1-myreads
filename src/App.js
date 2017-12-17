@@ -10,16 +10,20 @@ class BooksApp extends React.Component {
     books: []
   }
   
-  onSearchBooks = (show) => this.setState({ showSearchPage: show })
   componentDidMount() {
     BooksAPI.getAll().then((books) => this.setState({ books }))
   }
   
-  onMoveToShelf = (book_to_update, new_shelf) => {
-    console.log('chamado!')
-    new_shelf === 'none' || BooksAPI.update(book_to_update, new_shelf).then((result) => {
+  onMoveToShelf = (book_to_move, shelf_to_move) => {
+    console.log('onMoveToShelf called!')
+    console.log(book_to_move)
+    shelf_to_move === 'none' || BooksAPI.update(book_to_move, shelf_to_move).then((result) => {
+      console.log('moving book...')
       let books = this.state.books
       const shelves = Object.keys(result)
+      if(!books.map(book=> book.id).includes(book_to_move.id)) {
+        books.push(book_to_move)
+      }
 
       shelves.forEach(shelf => {
         result[shelf].forEach(book_id => {
@@ -30,6 +34,7 @@ class BooksApp extends React.Component {
       })
       this.setState({ books })
     })
+    
   }
   render() {
     const books = this.state.books
