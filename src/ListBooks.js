@@ -1,11 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Shelf from './Shelf'
 import PropTypes from 'prop-types'
 
 class ListBooks extends React.Component {
 	static propTypes={
 		books: PropTypes.array.isRequired,
-		showSearchPage: PropTypes.func.isRequired,
 		onMoveToShelf: PropTypes.func.isRequired
 	}
 			
@@ -39,7 +39,10 @@ class ListBooks extends React.Component {
 	        </div>
 	      </div>	
 	      <div className="open-search">
-	        <a title="Add a book" onClick={() => this.props.showSearchPage(true)}></a>
+	        <Link 
+	        	title="Add a book"
+	        	to='/search'
+	        > Add a book </Link>
 	      </div>	    
 	     </div>	
 		)

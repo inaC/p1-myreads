@@ -1,10 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import SearchBooksResults from './SearchBooksResults'
 import PropTypes from 'prop-types'
 
 class SearchBooks extends React.Component {
 	static propTypes = {
-		showSearchPage: PropTypes.func.isRequired,
 		onMoveToShelf: PropTypes.func.isRequired,
 		book_ids: PropTypes.object.isRequired
 	}
@@ -19,7 +19,11 @@ class SearchBooks extends React.Component {
 		return (
 			<div className="search-books">
 			  <div className="search-books-bar">
-			    <a className="close-search" title="Back to home page" onClick={() => this.props.showSearchPage(false)}></a>
+			    <Link 
+			    	className="close-search"
+			    	title="Back to home page" 
+			    	to='/'
+			    	> Back to home page </Link>
 			    <div className="search-books-input-wrapper">
 			      {/*
 			        NOTES: The search from BooksAPI is limited to a particular set of search terms.
