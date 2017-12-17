@@ -165,8 +165,15 @@ body, .app {
 
 .book-cover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  background: #eee;
+  width: 128px;
+  height: 193px;
+  background-size: 100% 100%;
 }
+
+book-cover, .not-found {
+  background-image: url('./icons/image_not_found.svg');
+}
+
 .book-cover-title {
   padding: 20px 10px 0;
   text-align: center;

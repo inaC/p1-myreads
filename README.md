@@ -90,3 +90,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Resources used:
+* Not found book cover [icon](https://pixabay.com/en/false-error-missing-absent-x-red-2061132/)
+* At the time this document was last updated, such icon has been defined as:
+    CC0 Creative Commons
+    Free for commercial use 
+    No attribution required

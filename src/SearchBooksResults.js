@@ -17,11 +17,13 @@ class SearchBooksResults extends React.Component {
 		if (prevProps.query !== this.props.query && this.props.query !== '') {
 			console.log(this.props.query)
 			BooksAPI.search(this.props.query).then((result) => {
-				result.forEach(book => {
-					book['shelf'] = this.props.book_ids[book.id]
-				})
-				this.setState({result})
-			})
+				if(!result.error) {
+					result.forEach(book => {
+						book['shelf'] = this.props.book_ids[book.id] || 'searching'
+					})
+					this.setState({result})
+				}
+			}).catch(() => console.log('uh-oh'))
 		}
 	}
 
