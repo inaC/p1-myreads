@@ -170,7 +170,7 @@ body, .app {
   background-size: 100% 100%;
 }
 
-book-cover, .not-found {
+.book-cover.not-found {
   background-image: url('./icons/image_not_found.svg');
 }
 

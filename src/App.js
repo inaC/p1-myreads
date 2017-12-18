@@ -17,7 +17,7 @@ class BooksApp extends React.Component {
   onMoveToShelf = (book_to_move, shelf_to_move) => {
     console.log('onMoveToShelf called!')
     console.log(book_to_move)
-    shelf_to_move === 'none' || BooksAPI.update(book_to_move, shelf_to_move).then((result) => {
+    BooksAPI.update(book_to_move, shelf_to_move).then((result) => {
       console.log('moving book...')
       let books = this.state.books
       const shelves = Object.keys(result)
