@@ -1,34 +1,17 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 import PropTypes from 'prop-types'
 
 class SearchBooksResults extends React.Component {
 	static propTypes = {
-		query: PropTypes.string.isRequired,
-		book_ids: PropTypes.object.isRequired,
-		onMoveToShelf: PropTypes.func.isRequired
-
-	}
-	state = {
-		result: []
-	}
-	componentDidUpdate(prevProps, prevState) {
-		if (prevProps.query !== this.props.query && this.props.query !== '') {
-			console.log(this.props.query)
-			BooksAPI.search(this.props.query).then((result) => {
-				if(!result.error) {
-					result.forEach(book => {
-						book['shelf'] = this.props.book_ids[book.id] || 'searching'
-					})
-					this.setState({result})
-				}
-			}).catch(() => console.log('uh-oh'))
-		}
+		result: PropTypes.array.isRequired,
+		onMoveToShelf: PropTypes.func.isRequired,
+		book_ids: PropTypes.object.isRequired
 	}
 
 	render() {
-		const {result} = this.state
+		const {result, book_ids} = this.props
+		result.forEach(book => {book['shelf'] = book_ids[book.id] || 'searching'})
 		return(
 			<div className="search-books-results">
 			  <ol className="books-grid">
