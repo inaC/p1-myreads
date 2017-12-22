@@ -9,18 +9,16 @@ class ListBooks extends React.Component {
 		onMoveToShelf: PropTypes.func.isRequired
 	}
 			
-	filterBooksBy = (books, shelf) => (books.filter((c) => c.shelf === shelf))
-	
-	booksByShelf = (shelf) => this.filterBooksBy(this.props.books, shelf)
-	
+	filterBooksBy = (shelf) => (this.props.books.filter((b) => b.shelf === shelf))
+		
 	render() {
-		const shelves=['currentlyReading', 'wantToRead', 'read']
+		const shelves = ['currentlyReading', 'wantToRead', 'read']
 		const titleByShelf = {
 			wantToRead: 'Want To Read',
 			currentlyReading: 'Currently Reading',
 			read: 'Read'
 		}
-		const booksByShelf=this.booksByShelf
+		const filterBooksBy = this.filterBooksBy
 		
 		return (
 	    <div className="list-books">
@@ -33,7 +31,7 @@ class ListBooks extends React.Component {
 	        		<Shelf key={shelf} 
 	        					 name={shelf}
 	        					 title={titleByShelf[shelf]}
-	        					 books={booksByShelf(shelf)}
+	        					 books={filterBooksBy(shelf)}
 	        					 onMoveToShelf={this.props.onMoveToShelf}/>
 	        	))}
 	        </div>
