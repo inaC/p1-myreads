@@ -11,18 +11,19 @@ class Shelf extends React.Component {
 	}
 
 	render() {
-		const name = this.props.name
-		const title = this.props.title
-		const books = this.props.books
-		const onMoveToShelf = this.props.onMoveToShelf
+		const { name, title, books, onMoveToShelf } = this.props
 
 		return (
 			<div className="bookshelf" key={name}>
-		  <h2 className="bookshelf-title"> {title} </h2>
+		  <h2 className="bookshelf-title">{title}</h2>
 		  <div className="bookshelf-books">
 		  	<ol className="books-grid">
-		  		{books.map((book) => (
-		  			<Book key={book.id} book={book} onSelect={onMoveToShelf}/>
+		  		{books.map(book => (
+		  			<Book 
+		  				key={book.id} 
+		  				book={book} 
+		  				onSelect={onMoveToShelf}
+		  			/>
 		  		))}
 		  	</ol>
 		  </div>
