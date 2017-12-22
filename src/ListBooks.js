@@ -32,15 +32,16 @@ class ListBooks extends React.Component {
 	        					 name={shelf}
 	        					 title={titleByShelf[shelf]}
 	        					 books={filterBooksBy(shelf)}
-	        					 onMoveToShelf={this.props.onMoveToShelf}/>
+	        					 onMoveToShelf={this.props.onMoveToShelf}
+	        		/>
 	        	))}
 	        </div>
 	      </div>	
 	      <div className="open-search">
 	        <Link 
 	        	title="Add a book"
-	        	to='/search'
-	        > Add a book </Link>
+	        	to="/search"> Add a book 
+	        </Link>
 	      </div>	    
 	     </div>	
 		)

@@ -12,11 +12,17 @@ class SearchBooksResults extends React.Component {
 	render() {
 		const {result, book_ids} = this.props
 		result.forEach(book => {book['shelf'] = book_ids[book.id] || 'searching'})
-		
+
 		return(
 			<div className="search-books-results">
 			  <ol className="books-grid">
-			  	{result.map(book => <Book key={book.id} book={book} onSelect={this.props.onMoveToShelf}/>)}
+			  	{result.map(book => (
+			  		<Book 
+			  			key={book.id} 
+			  			book={book} 
+			  			onSelect={this.props.onMoveToShelf}
+			  		/>
+			  	))}
 			  </ol>
 			</div>
 		)

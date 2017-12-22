@@ -17,11 +17,16 @@ class Book extends React.Component {
 			    <div className="book-top">
 			      {book.imageLinks ? 
 			      	(<div className="book-cover" style={{backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>):
-			      	(<div className="book-cover not-found" title='Image not found'></div>)
+			      	(<div className="book-cover not-found" title="Image not found"></div>)
 			      }
 			      <div className={`book-shelf-changer ${book.shelf === 'searching' ? 'searching' : 'moving'}`}>
-			        <select onChange={(event) => onMoveToShelf(book, event.target.value)} value={book.shelf}>
-			          <option value="searching" disabled>{book.shelf === 'searching' ? 'Add to...' : 'Move to...'}</option>
+			        <select 
+			        	onChange={event => onMoveToShelf(book, event.target.value)} 
+			        	value={book.shelf}>
+			          <option 
+			          	value="searching" 
+			          	disabled>{book.shelf === 'searching' ? 'Add to...' : 'Move to...'}
+			          </option>
 			          <option value="currentlyReading">Currently Reading</option>
 			          <option value="wantToRead">Want to Read</option>
 			          <option value="read">Read</option>

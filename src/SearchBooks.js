@@ -20,7 +20,7 @@ class SearchBooks extends React.Component {
 	}
 
 	getResult(query) {
-		BooksAPI.search(query).then((result) => {
+		BooksAPI.search(query).then(result => {
 			if(!result.error) {
 				this.setState({result})
 			}
@@ -34,13 +34,23 @@ class SearchBooks extends React.Component {
 			    <Link 
 			    	className="close-search"
 			    	title="Back to home page" 
-			    	to='/'
-			    	> Back to home page </Link>
+			    	to='/'> Back to home page 
+			    </Link>
 			    <div className="search-books-input-wrapper">
-			      <input type="text" placeholder="Search by title or author" value={this.state.query} onChange={(event) => this.searchBooks(event.target.value)}/>
+			      <input 
+			      	type="text"
+			      	placeholder="Search by title or author"
+			      	value={this.state.query}
+			      	onChange={event => this.searchBooks(event.target.value)}
+			      />
 			    </div>
 			  </div>
-			  <SearchBooksResults query={this.state.query} book_ids={this.props.book_ids} result={this.state.result} onMoveToShelf={this.props.onMoveToShelf}/>
+			  <SearchBooksResults 
+			  	query={this.state.query}
+			  	book_ids={this.props.book_ids}
+			  	result={this.state.result}
+			  	onMoveToShelf={this.props.onMoveToShelf}
+			  />
 			</div>
 		)
 	}
