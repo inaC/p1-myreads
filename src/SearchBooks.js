@@ -16,16 +16,15 @@ class SearchBooks extends React.Component {
 	}
 	searchBooks = (query) => {
 			this.setState({query})
-			this.getResult(query)
+			if(query !== '') this.getResult(query)
 	}
 
 	getResult(query) {
-		console.log(query)
 		BooksAPI.search(query).then((result) => {
 			if(!result.error) {
 				this.setState({result})
 			}
-		}).catch(() => console.log('uh-oh'))
+		}).catch(() => console.log('uh-oh: books could not be retrieved from the api'))
 	}
 
 	render() {

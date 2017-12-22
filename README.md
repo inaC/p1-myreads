@@ -91,7 +91,7 @@ This repository is the starter code for _all_ Udacity students. Therefore, we mo
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Resources used:
+## Resources used
 * Not found book cover [icon](https://pixabay.com/en/false-error-missing-absent-x-red-2061132/)
 * At the time this document was last updated, such icon has been defined as:
     CC0 Creative Commons
