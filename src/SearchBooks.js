@@ -25,7 +25,7 @@ class SearchBooks extends React.Component {
 			if(!result.error) {
 				this.setState({result})
 			}
-		}).catch(() => console.log('uh-oh: books could not be retrieved from the api'))
+		}).catch(() => this.setState({result: []}))
 	}
 
 	render() {
