@@ -1,16 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class Book extends React.Component {
-	static propTypes= {
-		book: PropTypes.object.isRequired,
-		onSelect: PropTypes.func.isRequired
-	}
+const Book = function(props) {
+		const book = props.book
+		const onMoveToShelf = props.onSelect
 
-	render() {
-		const book = this.props.book
-		const onMoveToShelf = this.props.onSelect
-		
 		return(
 			<li>
 			  <div className="book">
@@ -37,7 +31,11 @@ class Book extends React.Component {
 			    <div className="book-authors">{book.authors ? book.authors.join(', ') : 'Author unavailable'}</div>
 			  </div>
 			</li>)
-	}
+}
+
+Book.propTypes = {
+		book: PropTypes.object.isRequired,
+		onSelect: PropTypes.func.isRequired
 }
 
 export default Book

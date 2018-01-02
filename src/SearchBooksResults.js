@@ -2,31 +2,29 @@ import React from 'react'
 import Book from './Book'
 import PropTypes from 'prop-types'
 
-class SearchBooksResults extends React.Component {
-	static propTypes = {
-		result: PropTypes.array.isRequired,
-		onMoveToShelf: PropTypes.func.isRequired,
-		book_ids: PropTypes.object.isRequired
-	}
-
-	render() {
-		const {result, book_ids} = this.props
-		result.forEach(book => {book['shelf'] = book_ids[book.id] || 'searching'})
-
-		return(
-			<div className="search-books-results">
+const SearchBooksResults = function(props) {
+	const {result, book_ids} = props
+	result.forEach(book => {book['shelf'] = book_ids[book.id] || 'searching'})
+	
+	return(	
+		<div className="search-books-results">
 			  <ol className="books-grid">
 			  	{result.map(book => (
 			  		<Book 
 			  			key={book.id} 
 			  			book={book} 
-			  			onSelect={this.props.onMoveToShelf}
+			  			onSelect={props.onMoveToShelf}
 			  		/>
 			  	))}
 			  </ol>
 			</div>
 		)
-	}
+}
+
+SearchBooksResults.propTypes = {
+		result: PropTypes.array.isRequired,
+		onMoveToShelf: PropTypes.func.isRequired,
+		book_ids: PropTypes.object.isRequired
 }
 
 export default SearchBooksResults
